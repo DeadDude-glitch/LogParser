@@ -1,6 +1,8 @@
 # this module should used by the log module and independent of it
 # it is not the main module
 
+import colorama
+
 
 # ------------------------
 # |       Classes        | 
@@ -51,9 +53,13 @@ class Log:
         self.level = None
 
 
+class alert:
+    def __init__(self):
+        self.color = colorama.Fore.YELLOW
+        self.clear = colorama.Style.RESET_ALL
+        self.NoneMainModule = self.color + "[NOTICE] this should not run as a main module" + self.clear
 
-
-
+notice = alert()
 
 
 
@@ -65,18 +71,18 @@ class Log:
 
 # some classes here to store parsed log
 # probably not needed
-
+# most likely virtual
 
 # ---------------------
 # | UTILITY FUNCTIONS |
 # ---------------------
  
-# read the ticket file into array
+# read the raw log file into array of raw log data
 def read(filepath):
-    # read the ticket in a string array
-    file = open(filepath, 'r')
+    # read raw tickets from files
+    file = open(filepath, 'r')  
     tickets = file.readlines()
-    for ticket in tickets: ticket = ticket.strip('\n')
+    file.close()
     return tickets
 
 # format data of one ticket into parameters
@@ -101,17 +107,8 @@ def format(values):
         end += 1
     return dictionary
 
-
-
-
-# --------------------
-# |    driver code   |
-# --------------------
-def main(): 
-    print(read(file))
     
 
 # allow usage as a module
 if __name__ == "__main__": 
-    file = "./tickets.txt"
-    main()
+    print(notice.NoneMainModule)
